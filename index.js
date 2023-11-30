@@ -1,12 +1,17 @@
-function debounce(func, wait = 1000, immediate) {
-  let timer;
+function debounce(func, wait = 1000, immediate = false) {
+  let timeout;
 
-  const debounced = (...args) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      func(...args);
+  function debounced(...args) {
+    const callFirst = immediate && !timeout;
+    if (callFirst) func(...args);
+
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      if (!immediate) {
+        func(...args);
+      }
     }, wait);
-  };
+  }
 
   return debounced;
 }
@@ -15,12 +20,9 @@ function search(text) {
   console.log(`search '${text}'`);
 }
 
-const debouncedSearch = debounce(search);
+const debouncedSearch = debounce(search, undefined, true);
 
-search("zip");
-search("zip");
-search("zip");
 debouncedSearch("zip");
 debouncedSearch("zip");
 debouncedSearch("zip");
-debouncedSearch("zip");
+debouncedSearch("zipup");
