@@ -1,4 +1,4 @@
-function debounce(func, wait = 1000, immediate = false) {
+export default function debounce(func, wait = 1000, immediate = false) {
   let timeout;
 
   return {
@@ -23,16 +23,3 @@ function debounce(func, wait = 1000, immediate = false) {
     },
   };
 }
-
-function search(text) {
-  console.log(`search '${text}'`);
-}
-
-const { debounced, cancel } = debounce(search, undefined, true);
-
-debounced("zip").catch((err) => console.log(err));
-debounced("zip");
-debounced("zip");
-debounced("zipup");
-
-// cancel();
