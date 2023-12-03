@@ -5,15 +5,15 @@ function debounce(func, wait = 1000, immediate = false) {
     debounced(...args) {
       return new Promise((resolve, reject) => {
         const callFirst = immediate && !timeout;
-        if (callFirst) func(...args);
+        if (callFirst) {
+          func(...args);
+          reject("[REJECTED] 첫 번째 함수 즉시 실행");
+        }
 
         clearTimeout(timeout);
         timeout = setTimeout(() => {
           if (!immediate) {
-            func(...args);
-            resolve("[RESOLVED] 원래 함수 실행 완료");
-          } else {
-            reject("[REJECTED] 첫 번째 함수 즉시 실행");
+            resolve(func(...args));
           }
         }, wait);
       });
@@ -28,19 +28,11 @@ function search(text) {
   console.log(`search '${text}'`);
 }
 
-const { debounced, cancel } = debounce(search, undefined, false);
+const { debounced, cancel } = debounce(search, undefined, true);
 
-debounced("zip")
-  .then((val) => console.log(val))
-  .catch((err) => console.log(err));
-debounced("zip")
-  .then((val) => console.log(val))
-  .catch((err) => console.log(err));
-debounced("zip")
-  .then((val) => console.log(val))
-  .catch((err) => console.log(err));
-debounced("zipup")
-  .then((val) => console.log(val))
-  .catch((err) => console.log(err));
+debounced("zip").catch((err) => console.log(err));
+debounced("zip");
+debounced("zip");
+debounced("zipup");
 
-cancel();
+// cancel();
