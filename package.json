@@ -1,0 +1,16 @@
+{
+  "name": "debounce",
+  "type": "module",
+  "description": "debounce function",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --no-warnings --experimental-vm-modules $( [ -f ./node_modules/.bin/jest ] && echo ./node_modules/.bin/jest || which jest )"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

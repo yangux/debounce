@@ -3,12 +3,9 @@ export default function debounce(func, wait = 1000, immediate = false) {
 
   return {
     debounced(...args) {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         const callFirst = immediate && !timeout;
-        if (callFirst) {
-          func(...args);
-          reject("[REJECTED] 첫 번째 함수 즉시 실행");
-        }
+        if (callFirst) func(...args);
 
         clearTimeout(timeout);
         timeout = setTimeout(() => {

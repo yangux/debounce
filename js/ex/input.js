@@ -9,7 +9,7 @@ function update(text) {
   output.textContent = text;
 }
 
-const { debounced, cancel } = debounce(update, undefined, true);
+const { debounced, cancel } = debounce(update, undefined, false);
 
 input.addEventListener("input", (e) => {
   debounced(e.target.value).catch((err) => console.log(err));
